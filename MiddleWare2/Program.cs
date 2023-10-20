@@ -8,7 +8,7 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddTransient<CustomMiddleWare>();
+//builder.Services.AddTransient<CustomMiddleWare>();
 var app = builder.Build();
 
 
@@ -23,17 +23,17 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-//app.Use(async (HttpContext context, RequestDelegate next) =>
-//{
-//    await context.Response.WriteAsync("MiddleWare 1");
-//    await next(context);
-//});
+app.Use(async (HttpContext context, RequestDelegate next) =>
+{
+    await context.Response.WriteAsync("MiddleWare 1");
+    await next(context);
+});
 //app.UseMiddleware<CustomMiddleWare>();
-//app.Use(async (HttpContext context, RequestDelegate next) =>
-//{
-//    await context.Response.WriteAsync("MiddleWare 3");
-//    await next(context);
-//});
+app.Use(async (HttpContext context, RequestDelegate next) =>
+{
+    await context.Response.WriteAsync("MiddleWare 3");
+    await next(context);
+});
 app.CustomMiddleWare();
 //app.UseWhen(context => context.Request.Query.ContainsKey("IsAuthorized")
 //&& context.Request.Query["IsAuthorized"] == "false", app =>

@@ -7,11 +7,7 @@ namespace MiddleWare2.CustomeMiddleWare
 {
     public class CustomMiddleWare : IMiddleware
     {
-        private readonly ILogger<CustomMiddleWare> _logger;
-        public CustomMiddleWare(ILogger<CustomMiddleWare> logger)
-        {
-            _logger = logger;
-        }
+       
         public async Task InvokeAsync(HttpContext context, RequestDelegate next)
         {
 
